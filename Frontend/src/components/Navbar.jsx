@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext'
 const LOGO_URL = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_gAS9-bQD7y0myvOAe9YodV1GwWlYCZZV8qGEsHe8M1a_sFl5YCuT7XkMUqqk7rJL-cyaYuqchJp_i-W-LOdsP7vLWGFsgO5xhkj4W9wMKiNWP1ClAJNFy360SfTlzC6D5MA2DcnYXdvOcwDBp0LgMage0cZLUnDEdRR3ZQqQI3-t-7AjR1EKfuVqvvn0QOXlI2F0tUdLvKU8y5WiqjRDJuK5QRqVTQ0b9KN7dKxHH6PwvXzO8W4G0gc_VHFW9BNwnjJaiAhraqI'
 
 const navLinks = [
-  { label: 'Inicio', href: '/' },
+  { label: 'Inicio', href: '#' },
   { label: 'Catalogo', href: '#catalogo' },
   { label: 'A Cerca de Nosotros', href: '#acercade' }
 ]
