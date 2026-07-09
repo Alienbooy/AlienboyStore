@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/postcss'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/',
+  base: '/AlienboyStore/',
   plugins: [react()],
   css: {
     postcss: {
