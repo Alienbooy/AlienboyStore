@@ -19,7 +19,7 @@ export default function Home() {
 
       <main style={{ paddingTop: '72px' }}>
         {/* Hero Section */}
-        <section id="hero" style={{
+        <section id="hero" className="section-responsive" style={{
           position: 'relative',
           minHeight: 'calc(100vh - 72px)',
           display: 'flex',
@@ -35,7 +35,7 @@ export default function Home() {
             pointerEvents: 'none',
           }} />
 
-          <div style={{ maxWidth: '1440px', width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center', position: 'relative', zIndex: 1 }}>
+          <div className="hero-grid" style={{ maxWidth: '1440px', width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center', position: 'relative', zIndex: 1 }}>
             <div>
               <div style={{
                 display: 'inline-flex',
@@ -52,7 +52,7 @@ export default function Home() {
               </div>
 
               <h1 className="font-sora" style={{
-                fontSize: '72px',
+                fontSize: 'clamp(36px, 7vw, 72px)',
                 fontWeight: 800,
                 lineHeight: 1.1,
                 letterSpacing: '-0.04em',
@@ -73,7 +73,7 @@ export default function Home() {
                 Skates, mouses, switches y accesorios de alto rendimiento. Todo lo que necesitás para dominar cada partida.
               </p>
 
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <div className="hero-cta" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 <Link to="/catalogo" style={{
                   padding: '16px 28px',
                   background: 'var(--primary-container)',
@@ -132,7 +132,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ position: 'relative' }}>
+            <div className="hero-circle" style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', inset: '20%', background: 'radial-gradient(circle, rgba(0,255,65,0.1), transparent)', blur: '100px', borderRadius: '50%' }} />
               <div style={{
                 position: 'relative',
@@ -174,7 +174,7 @@ export default function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section id="benefits" style={{
+        <section id="benefits" className="section-responsive" style={{
           padding: '80px 64px',
           background: 'var(--surface-container-lowest)',
           borderTop: '1px solid rgba(255,255,255,0.05)',
@@ -183,7 +183,7 @@ export default function Home() {
           <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
             <div style={{ marginBottom: '60px' }}>
               <h2 className="font-sora" style={{
-                fontSize: '56px',
+                fontSize: 'clamp(28px, 5vw, 56px)',
                 fontWeight: 700,
                 color: 'var(--primary)',
                 marginBottom: '16px',
@@ -243,14 +243,14 @@ export default function Home() {
         </section>
 
         {/* Catalog Section */}
-        <section id="catalog" style={{
+        <section id="catalog" className="section-responsive" style={{
           padding: '80px 64px',
           maxWidth: '1440px',
           margin: '0 auto',
         }}>
           <div style={{ marginBottom: '60px' }}>
             <h2 className="font-sora" style={{
-              fontSize: '56px',
+              fontSize: 'clamp(28px, 5vw, 56px)',
               fontWeight: 700,
               color: 'var(--primary)',
               marginBottom: '12px',
@@ -267,7 +267,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div style={{
+          <div className="product-grid-responsive" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '28px',
@@ -336,14 +336,14 @@ export default function Home() {
         </a>
 
         {/* Footer */}
-        <footer style={{
+        <footer className="section-responsive" style={{
           background: 'var(--surface-container-lowest)',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           padding: '60px 64px 32px',
           marginTop: '80px',
         }}>
           <div style={{ maxWidth: '1440px', margin: '0 auto 40px' }}>
-            <div style={{
+            <div className="footer-grid-responsive" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
               gap: '40px',

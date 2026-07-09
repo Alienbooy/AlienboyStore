@@ -16,7 +16,7 @@ export default function Catalogo() {
 
       <main style={{ flex: 1, paddingTop: '72px' }}>
         {/* Hero Header */}
-        <section style={{
+        <section className="section-responsive" style={{
           maxWidth: '1440px', margin: '0 auto',
           padding: '64px 64px 48px',
         }}>
@@ -38,7 +38,7 @@ export default function Catalogo() {
         </section>
 
         {/* Category Filters */}
-        <section style={{
+        <section className="section-responsive filter-scroll" style={{
           maxWidth: '1440px', margin: '0 auto',
           padding: '0 64px 48px',
           overflowX: 'auto',
@@ -55,11 +55,11 @@ export default function Catalogo() {
         </section>
 
         {/* Product Grid */}
-        <section style={{
+        <section className="section-responsive" style={{
           maxWidth: '1440px', margin: '0 auto',
           padding: '0 64px 80px',
         }}>
-          <div style={{
+          <div className="product-grid-responsive" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
             gap: '24px',
@@ -70,12 +70,12 @@ export default function Catalogo() {
       </main>
 
       {/* Footer */}
-      <footer style={{
+      <footer className="section-responsive" style={{
         background: 'var(--surface-container-lowest)',
         borderTop: '1px solid rgba(255,255,255,0.08)',
         padding: '64px',
       }}>
-        <div style={{
+        <div className="footer-grid-responsive" style={{
           maxWidth: '1440px', margin: '0 auto',
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '24px',

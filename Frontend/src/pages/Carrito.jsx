@@ -24,13 +24,58 @@ export default function Carrito() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--background)', color: 'var(--on-surface)' }}>
+      <style>{`
+        .carrito-grid {
+          display: grid;
+          grid-template-columns: 1fr 350px;
+          gap: 32px;
+        }
+        .carrito-summary {
+          position: sticky;
+          top: 100px;
+        }
+        .carrito-item {
+          padding: 20px;
+        }
+        .carrito-empty {
+          padding: 80px 0;
+        }
+        .carrito-container {
+          padding: 0 24px;
+        }
+        .carrito-header {
+          font-size: 32px;
+        }
+        @media (max-width: 768px) {
+          .carrito-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
+          .carrito-summary {
+            position: static;
+          }
+          .carrito-item {
+            padding: 14px;
+            gap: 14px;
+          }
+          .carrito-empty {
+            padding: 48px 16px;
+          }
+          .carrito-container {
+            padding: 0 12px;
+          }
+          .carrito-header {
+            font-size: 24px;
+          }
+        }
+      `}</style>
       <Navbar />
       
       <main style={{ paddingTop: '100px', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px' }}>
+        <div className="carrito-container" style={{ maxWidth: '1000px', margin: '0 auto' }}>
           
           <div style={{ marginBottom: '40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h1 className="font-sora" style={{ fontSize: '32px', fontWeight: 700, color: 'var(--primary)' }}>
+            <h1 className="font-sora carrito-header" style={{ fontWeight: 700, color: 'var(--primary)' }}>
               Tu Carrito
             </h1>
             <span style={{ color: 'var(--on-surface-variant)' }}>
@@ -39,8 +84,8 @@ export default function Carrito() {
           </div>
 
           {cart.length === 0 ? (
-            <div style={{ 
-              textAlign: 'center', padding: '80px 0',
+            <div className="carrito-empty" style={{ 
+              textAlign: 'center',
               background: 'var(--surface-container)',
               borderRadius: '12px',
               border: '1px solid rgba(255,255,255,0.05)'
@@ -70,13 +115,12 @@ export default function Carrito() {
               </Link>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '32px' }}>
+            <div className="carrito-grid">
               {/* Cart Items List */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {cart.map(item => (
-                  <div key={`${item.id}-${item.option}`} style={{
-                    display: 'flex', gap: '20px',
-                    padding: '20px',
+                  <div key={`${item.id}-${item.option}`} className="carrito-item" style={{
+                    display: 'flex',
                     background: 'var(--surface-container)',
                     borderRadius: '12px',
                     border: '1px solid rgba(255,255,255,0.05)',
@@ -169,8 +213,7 @@ export default function Carrito() {
 
               {/* Order Summary */}
               <div>
-                <div style={{
-                  position: 'sticky', top: '100px',
+                <div className="carrito-summary" style={{
                   background: 'var(--surface-container)',
                   borderRadius: '12px',
                   border: '1px solid rgba(255,255,255,0.05)',

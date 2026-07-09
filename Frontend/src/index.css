@@ -252,3 +252,81 @@ body {
   height: 100%;
   object-fit: contain;
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  /* Hero section */
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    text-align: center;
+  }
+  .hero-grid .hero-cta {
+    justify-content: center;
+  }
+  .hero-circle {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* Section padding override */
+  .section-responsive {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Product grid */
+  .product-grid-responsive {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Footer grids */
+  .footer-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .footer-grid-responsive > div[style*="span 2"] {
+    grid-column: span 1 !important;
+  }
+
+  /* Filter buttons scrollable */
+  .filter-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .filter-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Detail page grid */
+  .detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Cart grid */
+  .cart-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Features grid in detail page */
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer grid in detail page */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid-responsive {
+    grid-template-columns: 1fr !important;
+  }
+}

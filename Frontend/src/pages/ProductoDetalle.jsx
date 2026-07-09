@@ -36,10 +36,10 @@ export default function ProductoDetalle() {
           pointerEvents: 'none',
         }} />
 
-        <div style={{
+        <div className="detail-container" style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '48px 20px',
+          padding: '24px 16px',
           position: 'relative',
         }}>
           {/* Product Grid */}
@@ -203,7 +203,7 @@ export default function ProductoDetalle() {
                     textTransform: 'uppercase',
                   }}>Quantity Options</label>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: `repeat(${qtys.length}, 1fr)`, gap: '16px' }}>
+                  <div className="qty-grid" style={{ display: 'grid', gridTemplateColumns: `repeat(${qtys.length}, 1fr)`, gap: '12px' }}>
                     {qtys.map(qty => (
                       <button
                         key={qty}
@@ -244,7 +244,7 @@ export default function ProductoDetalle() {
                 )}
 
                 {/* Specs Bento */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="specs-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   {product.specs.map(spec => (
                     <div key={spec.label} style={{
                       padding: '12px',
@@ -364,16 +364,17 @@ export default function ProductoDetalle() {
 
           {/* Features Section */}
           <section style={{
-            marginTop: '96px',
+            marginTop: '48px',
             display: 'grid',
             gridTemplateColumns: 'repeat(1, 1fr)',
-            gap: '24px',
+            gap: '16px',
           }} className="features-grid">
             {product.features.map(feat => (
               <div
                 key={feat.title}
+                className="feature-card"
                 style={{
-                  padding: '32px',
+                  padding: '20px',
                   background: 'var(--surface-container)',
                   borderRadius: '8px',
                   border: '1px solid rgba(255,255,255,0.05)',
@@ -503,16 +504,44 @@ export default function ProductoDetalle() {
 
       {/* Responsive Styles */}
       <style>{`
+        /* === Mobile-first defaults (< 768px) === */
+        .qty-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        .specs-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        /* === Tablet and up (>= 768px) === */
         @media (min-width: 768px) {
+          .detail-container {
+            padding: 48px 32px !important;
+          }
+          .specs-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          .qty-grid {
+            grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+          }
           .features-grid {
             grid-template-columns: repeat(3, 1fr) !important;
+            margin-top: 96px !important;
+            gap: 24px !important;
+          }
+          .feature-card {
+            padding: 32px !important;
           }
           .footer-grid {
             grid-template-columns: 1fr 1fr 1fr 1fr !important;
             padding: 0 64px !important;
           }
         }
+
+        /* === Desktop (>= 1024px) === */
         @media (min-width: 1024px) {
+          .detail-container {
+            padding: 48px 20px !important;
+          }
           .product-grid {
             grid-template-columns: 7fr 5fr !important;
           }
