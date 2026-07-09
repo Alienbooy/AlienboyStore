@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useCart } from '../context/CartContext'
 
 const LOGO_URL = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_gAS9-bQD7y0myvOAe9YodV1GwWlYCZZV8qGEsHe8M1a_sFl5YCuT7XkMUqqk7rJL-cyaYuqchJp_i-W-LOdsP7vLWGFsgO5xhkj4W9wMKiNWP1ClAJNFy360SfTlzC6D5MA2DcnYXdvOcwDBp0LgMage0cZLUnDEdRR3ZQqQI3-t-7AjR1EKfuVqvvn0QOXlI2F0tUdLvKU8y5WiqjRDJuK5QRqVTQ0b9KN7dKxHH6PwvXzO8W4G0gc_VHFW9BNwnjJaiAhraqI'
 
@@ -12,6 +13,7 @@ const navLinks = [
 export default function Navbar() {
   const location = useLocation()
   const { isLoggedIn, logout } = useAuth()
+  const { getCartCount } = useCart()
   
   // Show nav links mainly on the home page or catalog where it makes sense
   // If we are on /login or /registro we might still show them, or hide them.
@@ -76,11 +78,31 @@ export default function Navbar() {
             transition: 'all 0.2s',
             textDecoration: 'none',
             display: 'flex', alignItems: 'center',
+            position: 'relative'
           }}
             onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
             onMouseLeave={e => e.currentTarget.style.color = 'var(--on-surface-variant)'}
           >
             <span className="material-symbols-outlined">shopping_cart</span>
+            {getCartCount() > 0 && (
+              <span style={{
+                position: 'absolute',
+                top: '0px', right: '0px',
+                background: 'var(--primary-container)',
+                color: '#131313',
+                fontSize: '10px',
+                fontWeight: 'bold',
+                fontFamily: 'JetBrains Mono, monospace',
+                minWidth: '16px',
+                height: '16px',
+                borderRadius: '8px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: '0 4px',
+                transform: 'translate(25%, -25%)'
+              }}>
+                {getCartCount()}
+              </span>
+            )}
           </Link>
 
           {!isLoggedIn ? (

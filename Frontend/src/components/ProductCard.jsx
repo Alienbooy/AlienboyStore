@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 export default function ProductCard({ product }) {
   const qtys = Object.keys(product.prices)
   const [selectedQty, setSelectedQty] = useState(qtys[0])
+  const { addToCart } = useCart()
 
   return (
     <Link to={`/producto/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -58,21 +60,23 @@ export default function ProductCard({ product }) {
           </p>
 
           {/* Qty Toggle */}
-          <div className="qty-toggle" style={{ marginBottom: '16px' }}
-            onClick={e => e.preventDefault()}
-          >
-            {qtys.map(qty => (
-              <label key={qty} style={{
-                cursor: 'pointer', padding: '4px 12px', borderRadius: '9999px',
-                fontFamily: 'JetBrains Mono, monospace', fontSize: '10px',
-                fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em',
-                color: selectedQty === qty ? '#131313' : 'var(--on-surface-variant)',
-                background: selectedQty === qty ? 'var(--primary-container)' : 'transparent',
-                boxShadow: selectedQty === qty ? '0 0 10px rgba(0,255,65,0.3)' : 'none',
-                transition: 'all 0.3s',
-              }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedQty(qty) }}>{qty}</label>
-            ))}
-          </div>
+          {qtys.length > 1 && (
+            <div className="qty-toggle" style={{ marginBottom: '16px' }}
+              onClick={e => e.preventDefault()}
+            >
+              {qtys.map(qty => (
+                <label key={qty} style={{
+                  cursor: 'pointer', padding: '4px 12px', borderRadius: '9999px',
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: '10px',
+                  fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em',
+                  color: selectedQty === qty ? '#131313' : 'var(--on-surface-variant)',
+                  background: selectedQty === qty ? 'var(--primary-container)' : 'transparent',
+                  boxShadow: selectedQty === qty ? '0 0 10px rgba(0,255,65,0.3)' : 'none',
+                  transition: 'all 0.3s',
+                }} onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedQty(qty) }}>{qty}</label>
+              ))}
+            </div>
+          )}
 
           {/* Price & Cart */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
@@ -88,7 +92,23 @@ export default function ProductCard({ product }) {
               cursor: 'pointer', display: 'flex', alignItems: 'center',
               transition: 'all 0.3s',
             }}
-              onClick={e => { e.preventDefault(); e.stopPropagation() }}
+              onClick={e => { 
+                e.preventDefault()
+                e.stopPropagation()
+                addToCart(product, 1, qtys.length > 1 ? selectedQty : null)
+                
+                // Visual feedback
+                const btn = e.currentTarget
+                const oldColor = btn.style.color
+                btn.style.color = '#fff'
+                btn.style.background = '#25D366'
+                btn.style.borderColor = '#25D366'
+                setTimeout(() => {
+                  btn.style.color = oldColor
+                  btn.style.background = `${product.tagColor}18`
+                  btn.style.borderColor = product.tagColor
+                }, 500)
+              }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = product.tagColor
                 e.currentTarget.style.color = '#131313'

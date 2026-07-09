@@ -1,13 +1,17 @@
 import { useState } from 'react'
-import { Link, useParams, Navigate } from 'react-router-dom'
+import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 import Navbar from '../components/Navbar'
 import PRODUCTS from '../data/products'
 
 export default function ProductoDetalle() {
   const { slug } = useParams()
+  const navigate = useNavigate()
+  const { addToCart } = useCart()
   const product = PRODUCTS.find(p => p.id === slug)
 
   const [selectedQty, setSelectedQty] = useState(product ? Object.keys(product.prices)[0] : null)
+  const [selectedImage, setSelectedImage] = useState(0)
 
   if (!product) {
     return <Navigate to="/catalogo" replace />
@@ -55,8 +59,8 @@ export default function ProductoDetalle() {
                 border: '1px solid rgba(255,255,255,0.1)',
               }}>
                 <img
-                  alt={`${product.name} Main View`}
-                  src={product.img}
+                  alt={`${product.name} ${product.images ? (product.imageLabels?.[selectedImage] || `Vista ${selectedImage + 1}`) : 'Main View'}`}
+                  src={product.images ? product.images[selectedImage] : product.img}
                   style={{
                     width: '100%', height: '100%',
                     objectFit: 'cover',
@@ -85,6 +89,35 @@ export default function ProductoDetalle() {
                   ))}
                 </div>
               </div>
+
+              {/* Thumbnail Gallery */}
+              {product.images && product.images.length > 1 && (
+                <div className="thumb-gallery">
+                  {product.images.map((img, i) => (
+                    <button
+                      key={i}
+                      className={selectedImage === i ? 'active' : ''}
+                      onClick={() => setSelectedImage(i)}
+                    >
+                      <img src={img} alt={product.imageLabels?.[i] || `Vista ${i + 1}`} />
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Color Label */}
+              {product.images && product.imageLabels && (
+                <p style={{
+                  marginTop: '8px',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '12px',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--on-surface-variant)',
+                }}>
+                  Color: <span style={{ color: 'var(--primary)' }}>{product.imageLabels[selectedImage]}</span>
+                </p>
+              )}
             </div>
 
             {/* Product Details */}
@@ -161,6 +194,7 @@ export default function ProductoDetalle() {
                 </div>
 
                 {/* Quantity Selector */}
+                {qtys.length > 1 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <label style={{
                     fontFamily: 'JetBrains Mono, monospace',
@@ -169,7 +203,7 @@ export default function ProductoDetalle() {
                     textTransform: 'uppercase',
                   }}>Quantity Options</label>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: `repeat(${qtys.length}, 1fr)`, gap: '16px' }}>
                     {qtys.map(qty => (
                       <button
                         key={qty}
@@ -195,18 +229,19 @@ export default function ProductoDetalle() {
                         }}
                       >
                         <span className="font-sora" style={{
-                          fontSize: '32px', fontWeight: 600, lineHeight: 1.3,
+                          fontSize: qtys.length > 2 ? '24px' : '32px', fontWeight: 600, lineHeight: 1.3,
                           color: 'var(--on-surface)',
                         }}>{qty}</span>
                         <span style={{
                           fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: '12px', letterSpacing: '0.1em', fontWeight: 500,
+                          fontSize: qtys.length > 2 ? '10px' : '12px', letterSpacing: '0.1em', fontWeight: 500,
                           color: selectedQty === qty ? 'var(--primary-container)' : 'var(--on-surface-variant)',
                         }}>{product.quantityLabels[qty]}</span>
                       </button>
                     ))}
                   </div>
                 </div>
+                )}
 
                 {/* Specs Bento */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -255,6 +290,20 @@ export default function ProductoDetalle() {
                     onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 20px rgba(0,255,65,0.2)'}
                     onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
                     onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={(e) => {
+                      addToCart(
+                        product, 
+                        1, 
+                        qtys.length > 1 ? selectedQty : null,
+                        product.imageLabels ? product.imageLabels[selectedImage] : null,
+                        product.images ? product.images[selectedImage] : null
+                      )
+                      // Visual feedback
+                      const btn = e.currentTarget
+                      const oldText = btn.innerText
+                      btn.innerText = '¡Añadido!'
+                      setTimeout(() => { btn.innerText = oldText }, 1000)
+                    }}
                   >
                     Añadir al Carrito
                   </button>
@@ -277,6 +326,16 @@ export default function ProductoDetalle() {
                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
                     onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={() => {
+                      addToCart(
+                        product, 
+                        1, 
+                        qtys.length > 1 ? selectedQty : null,
+                        product.imageLabels ? product.imageLabels[selectedImage] : null,
+                        product.images ? product.images[selectedImage] : null
+                      )
+                      navigate('/carrito')
+                    }}
                   >
                     Comprar Ahora
                   </button>

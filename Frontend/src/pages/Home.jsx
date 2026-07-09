@@ -48,7 +48,7 @@ export default function Home() {
                 marginBottom: '24px',
               }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '18px', fontWeight: 700 }}>speed</span>
-                <span className="font-mono" style={{ fontSize: '11px', color: 'var(--primary-container)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>Premium PTFE &amp; UHMWPE</span>
+                <span className="font-mono" style={{ fontSize: '11px', color: 'var(--primary-container)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>Gaming Gear Premium</span>
               </div>
 
               <h1 className="font-sora" style={{
@@ -70,7 +70,7 @@ export default function Home() {
                 marginBottom: '32px',
                 maxWidth: '600px',
               }}>
-                Skates premium X-Raypad para mayor precisión, control, durabilidad y menor fricción. Domina cada movimiento en el campo de batalla.
+                Skates, mouses, switches y accesorios de alto rendimiento. Todo lo que necesitás para dominar cada partida.
               </p>
 
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -153,7 +153,7 @@ export default function Home() {
                   gap: '12px',
                   width: '100%',
                 }}>
-                  {PRODUCTS.slice(0, 4).map(p => (
+                  {[PRODUCTS[0], PRODUCTS[5], PRODUCTS[7], PRODUCTS[10]].filter(Boolean).map(p => (
                     <div key={p.id} style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -263,7 +263,7 @@ export default function Home() {
               maxWidth: '800px',
               lineHeight: 1.6,
             }}>
-              Selecciona tu munición. Cada variante está diseñada para un estilo de juego específico.
+              Productos destacados de cada categoría. Explorá todo el catálogo para ver más.
             </p>
           </div>
 
@@ -272,9 +272,36 @@ export default function Home() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '28px',
           }}>
-            {PRODUCTS.map(product => (
+            {PRODUCTS.filter(p => ['jade-air', 'obsidian', 'atk-zero', 'logitech-superstrike', 'wlmouse-beast-x-pro', 'omron-d2f', 'gravastar-purple', 'wukong-magnetic', 'gaming-grip-tape'].includes(p.id)).map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            <Link to="/catalogo" style={{
+              padding: '16px 36px',
+              background: 'transparent',
+              color: 'var(--primary)',
+              textDecoration: 'none',
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '13px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.14em',
+              border: '1px solid var(--primary)',
+              borderRadius: '2px',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              transition: 'all 0.3s',
+            }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,255,65,0.1)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+            >
+              Ver catálogo completo
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
+            </Link>
           </div>
         </section>
 

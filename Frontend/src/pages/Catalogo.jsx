@@ -5,37 +5,7 @@ import PRODUCTS from '../data/products'
 
 const CATEGORIES = ['Skates', 'Switches Magnéticos', 'Switches de Mouse', 'Mouse', 'Accesorios']
 
-function ComingSoonCard({ icon, label }) {
-  return (
-    <div style={{
-      background: 'var(--surface-container-lowest)',
-      border: '1px solid rgba(255,255,255,0.05)',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '400px',
-      position: 'relative',
-    }}>
-      <span className="material-symbols-outlined" style={{
-        fontSize: '40px', color: 'rgba(185,204,178,0.3)', marginBottom: '14px',
-      }}>{icon}</span>
-      <h3 className="font-sora" style={{
-        fontSize: '16px', fontWeight: 700,
-        color: 'rgba(185,204,178,0.4)', marginBottom: '12px',
-      }}>{label}</h3>
-      <span className="font-mono" style={{
-        fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em',
-        color: 'rgba(0,255,65,0.5)',
-        border: '1px solid rgba(0,255,65,0.2)',
-        padding: '4px 12px', borderRadius: '2px',
-        background: 'rgba(19,19,19,0.5)',
-      }}>Coming Soon</span>
-    </div>
-  )
-}
+
 
 export default function Catalogo() {
   const [activeCategory, setActiveCategory] = useState('Skates')
@@ -89,32 +59,13 @@ export default function Catalogo() {
           maxWidth: '1440px', margin: '0 auto',
           padding: '0 64px 80px',
         }}>
-          {activeCategory === 'Skates' ? (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-              gap: '24px',
-            }}>
-              {PRODUCTS.map(p => <ProductCard key={p.id} product={p} />)}
-              <ComingSoonCard icon="memory" label="Switches Magnéticos" />
-              <ComingSoonCard icon="mouse" label="Gaming Mice" />
-            </div>
-          ) : (
-            <div style={{
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              minHeight: '400px', gap: '16px',
-            }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '48px', color: 'rgba(185,204,178,0.2)' }}>inventory_2</span>
-              <h3 className="font-sora" style={{ fontSize: '20px', color: 'rgba(185,204,178,0.3)' }}>{activeCategory}</h3>
-              <span className="font-mono" style={{
-                fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em',
-                color: 'rgba(0,255,65,0.5)',
-                border: '1px solid rgba(0,255,65,0.2)',
-                padding: '6px 16px', borderRadius: '2px',
-              }}>Coming Soon</span>
-            </div>
-          )}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: '24px',
+          }}>
+            {PRODUCTS.filter(p => p.category === activeCategory).map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
         </section>
       </main>
 
