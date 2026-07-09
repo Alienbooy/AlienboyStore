@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import ProductCard from '../components/ProductCard'
 import PRODUCTS from '../data/products'
@@ -13,6 +14,17 @@ const BENEFITS = [
 ]
 
 export default function Home() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.hash === '#acercade') {
+      const element = document.getElementById('acercade')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }, [location])
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--background)', color: 'var(--on-surface)' }}>
       <Navbar />
@@ -101,7 +113,7 @@ export default function Home() {
                 >
                   Comprar ahora
                 </Link>
-                <a href="/catalogo" style={{
+                <Link to="/catalogo" style={{
                   padding: '16px 28px',
                   background: 'transparent',
                   color: 'var(--primary)',
@@ -127,8 +139,8 @@ export default function Home() {
                   }}
                 >
                   Ver catálogo
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_downward</span>
-                </a>
+                  <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_forward</span>
+                </Link>
               </div>
             </div>
 
@@ -302,6 +314,106 @@ export default function Home() {
               Ver catálogo completo
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
             </Link>
+          </div>
+        </section>
+
+        {/* Acerca de Nosotros Section */}
+        <section id="acercade" className="section-responsive" style={{
+          padding: '80px 64px',
+          background: 'var(--surface-container)',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
+        }}>
+          <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '48px', alignItems: 'center' }} className="detail-grid">
+              <div>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 14px',
+                  border: '1px solid rgba(0,255,65,0.3)',
+                  borderRadius: '9999px',
+                  background: 'rgba(0,255,65,0.08)',
+                  marginBottom: '24px',
+                }}>
+                  <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '18px' }}>group</span>
+                  <span className="font-mono" style={{ fontSize: '11px', color: 'var(--primary-container)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>Nuestra Historia</span>
+                </div>
+                
+                <h2 className="font-sora" style={{
+                  fontSize: 'clamp(28px, 5vw, 56px)',
+                  fontWeight: 800,
+                  color: 'var(--primary)',
+                  marginBottom: '24px',
+                  lineHeight: 1.1,
+                }}>
+                  2 Universitarios,
+                  <br />
+                  <span style={{ color: 'var(--on-surface)' }}>1 Misión Gaming.</span>
+                </h2>
+                
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: 1.8,
+                  color: 'var(--on-surface-variant)',
+                  marginBottom: '20px',
+                }}>
+                  Somos dos estudiantes universitarios intentando salir adelante con este proyecto. Fundamos <strong>Alienboy Store</strong> cansados de que en Bolivia no hubieran periféricos de alta performance a un precio razonable, y de que conseguir repuestos básicos para tu setup fuera una misión imposible.
+                </p>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: 1.8,
+                  color: 'var(--on-surface-variant)',
+                }}>
+                  Queremos ser tu tienda gaming de confianza para tu setup, importando periféricos y repuestos directamente de las mejores marcas del mercado como <strong>X-Raypad, Wallhack, ATK, WLMouse</strong> y muchas otras. Nos esforzamos día a día por mejorar la satisfacción de nuestros clientes con los mejores precios del país y envíos rápidos a toda Bolivia.
+                </p>
+              </div>
+
+              <div style={{
+                background: 'rgba(32,31,31,0.4)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px',
+                padding: '40px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              }}>
+                <h3 className="font-sora" style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px', color: 'var(--primary-container)' }}>
+                  Nuestro Compromiso
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div style={{ display: 'flex', gap: '16px' }}>
+                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '28px', flexShrink: 0 }}>target</span>
+                    <div>
+                      <h4 className="font-sora" style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>Dots X-Raypad (Producto Estrella)</h4>
+                      <p style={{ fontSize: '14px', color: 'var(--on-surface-variant)', lineHeight: 1.5 }}>
+                        Damos solución al eterno problema de repuestos para tus skates. Deslizamiento perfecto, aim superior y la mayor durabilidad.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px' }}>
+                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '28px', flexShrink: 0 }}>sports_esports</span>
+                    <div>
+                      <h4 className="font-sora" style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>Setup Profesional</h4>
+                      <p style={{ fontSize: '14px', color: 'var(--on-surface-variant)', lineHeight: 1.5 }}>
+                        Importamos los mouses más buscados, mousepads de tela y vidrio premium, clicks/switches para mouse y switches magnéticos para repotenciar tu teclado.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px' }}>
+                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '28px', flexShrink: 0 }}>local_shipping</span>
+                    <div>
+                      <h4 className="font-sora" style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>Envíos a Todo el País</h4>
+                      <p style={{ fontSize: '14px', color: 'var(--on-surface-variant)', lineHeight: 1.5 }}>
+                        Llegamos a toda Bolivia con tarifas competitivas y embalaje de seguridad para que tu setup siempre esté al máximo nivel.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

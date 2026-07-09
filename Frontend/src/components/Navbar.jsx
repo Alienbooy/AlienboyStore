@@ -6,9 +6,9 @@ import { useCart } from '../context/CartContext'
 const LOGO_URL = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_gAS9-bQD7y0myvOAe9YodV1GwWlYCZZV8qGEsHe8M1a_sFl5YCuT7XkMUqqk7rJL-cyaYuqchJp_i-W-LOdsP7vLWGFsgO5xhkj4W9wMKiNWP1ClAJNFy360SfTlzC6D5MA2DcnYXdvOcwDBp0LgMage0cZLUnDEdRR3ZQqQI3-t-7AjR1EKfuVqvvn0QOXlI2F0tUdLvKU8y5WiqjRDJuK5QRqVTQ0b9KN7dKxHH6PwvXzO8W4G0gc_VHFW9BNwnjJaiAhraqI'
 
 const navLinks = [
-  { label: 'Inicio', href: '#' },
-  { label: 'Catalogo', href: '#catalogo' },
-  { label: 'A Cerca de Nosotros', href: '#acercade' }
+  { label: 'Inicio', to: '/' },
+  { label: 'Catálogo', to: '/catalogo' },
+  { label: 'Acerca de Nosotros', to: '/#acercade' }
 ]
 
 export default function Navbar() {
@@ -112,7 +112,7 @@ export default function Navbar() {
         {/* Desktop Nav - hidden on mobile via className */}
         <nav className="nav-links" style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           {navLinks.map(link => (
-            <a key={link.label} href={link.href} style={{
+            <Link key={link.label} to={link.to} style={{
               fontFamily: 'Geist, sans-serif',
               fontSize: '15px',
               color: 'var(--on-surface-variant)',
@@ -121,7 +121,7 @@ export default function Navbar() {
             }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--on-surface-variant)'}
-            >{link.label}</a>
+            >{link.label}</Link>
           ))}
         </nav>
 
@@ -261,9 +261,9 @@ export default function Navbar() {
       <div className="mobile-menu">
         {/* Mobile nav links */}
         {navLinks.map(link => (
-          <a
+          <Link
             key={link.label}
-            href={link.href}
+            to={link.to}
             onClick={() => setMenuOpen(false)}
             style={{
               fontFamily: 'Geist, sans-serif',
@@ -278,7 +278,7 @@ export default function Navbar() {
             onMouseLeave={e => e.currentTarget.style.color = 'var(--on-surface-variant)'}
           >
             {link.label}
-          </a>
+          </Link>
         ))}
 
         {/* Mobile auth actions */}
