@@ -7,7 +7,7 @@ const LOGO_URL = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_gAS9-bQD
 
 const navLinks = [
   { label: 'Inicio', href: '/' },
-  { label: 'Catalogo', href: '/catalogo' },
+  { label: 'Catalogo', href: '#catalogo' },
   { label: 'A Cerca de Nosotros', href: '#acercade' }
 ]
 
